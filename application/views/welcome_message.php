@@ -25,7 +25,7 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a class="nav-link" rel="tooltip" title="Voir notre projet sur github" data-placement="bottom"
-					   href="https://www.github.com/" target="_blank">
+					   href="https://github.com/illanchristoffel/projet_cvven_final" target="_blank">
 						<i class="fa fa-github"></i>
 						<p class="hidden-lg-up"></p>
 					</a>
