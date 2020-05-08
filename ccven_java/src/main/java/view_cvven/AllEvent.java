@@ -54,7 +54,7 @@ public class AllEvent extends javax.swing.JFrame {
                rs = st.executeQuery(query);
                Archiver archiver;
                while(rs.next()){
-                   archiver = new Archiver(rs.getInt("num_event"), rs.getString("archive"));
+                   archiver = new Archiver(rs.getInt("num_event"), rs.getString("archive"), rs.getString("salles"));
                    archiverList.add(archiver);
                }
            }catch(Exception e){
@@ -92,7 +92,7 @@ public class AllEvent extends javax.swing.JFrame {
        Class.forName("org.postgresql.Driver");
        Connection con = DriverManager.getConnection("jdbc:postgresql://chamilo.rene-descartes.fr/GroupeA", "groupea", "grpa");
             System.out.println("Connexion au serveur réussie !");
-  String sql = "Select num_event, libelle, theme, date_debut, date_fin, nombre_de_participants from evenement where archive='Disponible' ORDER BY num_event DESC";
+  String sql = "Select num_event, libelle, theme, date_debut, date_fin, nombre_de_participants, salles from evenement where archive='Disponible' ORDER BY num_event DESC";
  
 PreparedStatement pst = con.prepareStatement(sql);
   ResultSet rs = pst.executeQuery();
@@ -119,6 +119,7 @@ PreparedStatement pst = con.prepareStatement(sql);
         jlib = new javax.swing.JTextField();
         jtheme = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jsalle = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,15 +204,17 @@ PreparedStatement pst = con.prepareStatement(sql);
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(archive, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(256, 256, 256)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jlib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(366, 366, 366)
                         .addComponent(jtheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(archive, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jsalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(256, 256, 256)
+                        .addComponent(jButton1)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(383, 383, 383)
@@ -229,7 +232,9 @@ PreparedStatement pst = con.prepareStatement(sql);
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlib, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtheme, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(107, 107, 107)
+                .addGap(62, 62, 62)
+                .addComponent(jsalle, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(archive)
                     .addComponent(jButton1))
@@ -249,10 +254,11 @@ menu retour=new menu ();
             try {
        Class.forName("org.postgresql.Driver");
        Connection con = DriverManager.getConnection("jdbc:postgresql://chamilo.rene-descartes.fr/GroupeA", "groupea", "grpa");
-            String dispo ="UPDATE salle SET etat=?";
+            String dispo ="UPDATE salle SET etat=? where nom_salle=?";
             
             PreparedStatement prepareddispo = con.prepareStatement(dispo);
       prepareddispo.setString (1, "Disponible");
+       prepareddispo.setString (2, jsalle.getText());
       prepareddispo.execute();
         }
         catch(Exception e){
@@ -263,6 +269,7 @@ menu retour=new menu ();
         
         String query = "UPDATE evenement SET archive='Archivé' where num_event="+jtheme.getText();
         executeQuery(query, "Modifier");
+    
         
 
     }//GEN-LAST:event_archiveActionPerformed
@@ -272,7 +279,8 @@ menu retour=new menu ();
        int i = table.getSelectedRow();
         TableModel model = table.getModel();
         jtheme.setText(model.getValueAt(i, 0).toString());
-        jlib.setText(model.getValueAt(i, 6).toString());
+        jlib.setText(model.getValueAt(i, 1).toString());
+        jsalle.setText(model.getValueAt(i, 6).toString());
 
     }//GEN-LAST:event_tableMouseClicked
 
@@ -330,6 +338,7 @@ menu retour=new menu ();
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField jlib;
+    private javax.swing.JTextField jsalle;
     private javax.swing.JTextField jtheme;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables

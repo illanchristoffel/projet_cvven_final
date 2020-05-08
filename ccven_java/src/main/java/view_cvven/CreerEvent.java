@@ -260,10 +260,11 @@ public class CreerEvent extends javax.swing.JFrame {
        Connection con = DriverManager.getConnection("jdbc:postgresql://chamilo.rene-descartes.fr/GroupeA", "groupea", "grpa");
             System.out.println("Connexion au serveur réussie !");
             
-            String reserv ="UPDATE salle SET etat=?";
+            String reserv ="UPDATE salle SET etat=? where nom_salle=?";
             
             PreparedStatement preparedreserv = con.prepareStatement(reserv);
       preparedreserv.setString (1, "Reservé");
+      preparedreserv.setString (2, salle.getSelectedItem().toString());
       preparedreserv.execute();
             
             String query = " insert into evenement (libelle, theme, date_debut, date_fin, nombre_de_participants, description, organisateur, type_even, salles, archive)"
@@ -282,6 +283,7 @@ public class CreerEvent extends javax.swing.JFrame {
       preparedStmt.setString (9, salle.getSelectedItem().toString());
       preparedStmt.setString (10, "Disponible");
       // execute the preparedstatement
+      
      preparedStmt.execute();
      {
            JOptionPane.showMessageDialog(null, "Evenement crée");

@@ -58,7 +58,7 @@ public class AllUser extends javax.swing.JFrame {
                rs = st.executeQuery(query);
                Archiver archiver;
                while(rs.next()){
-                   archiver = new Archiver(rs.getInt("id"), rs.getString("nom"));
+                   archiver = new Archiver(rs.getInt("id"), rs.getString("nom"), rs.getString("salle"));
                    archiverList.add(archiver);
                }
            }catch(Exception e){

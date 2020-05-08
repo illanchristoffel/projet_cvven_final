@@ -12,6 +12,7 @@ import java.sql.JDBCType;
 import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.sql.ResultSet;
 import javax.swing.*;
 import org.junit.Test;

@@ -12,13 +12,15 @@ package view_cvven;
 public class Archiver {
     private int id;
     private String archiver;
+    private String salle;
     
 
 
-public Archiver(int Id, String Archi)
+public Archiver(int Id, String Archi, String Salle)
 {
     this.id = Id;
 this.archiver = Archi;
+this.salle = Salle;
 }
 
 public int getId()
@@ -27,6 +29,11 @@ public int getId()
 }
 
 public String getArchi()
+{
+return archiver;
+}
+
+public String getSalle()
 {
 return archiver;
 }

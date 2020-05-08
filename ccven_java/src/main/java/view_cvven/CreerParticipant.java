@@ -232,7 +232,10 @@ public class CreerParticipant extends javax.swing.JFrame {
        Connection con = DriverManager.getConnection("jdbc:postgresql://chamilo.rene-descartes.fr/GroupeA", "groupea", "grpa");
             System.out.println("Connexion au serveur réussie !");
                      
-            
+             if(eventCombo.getSelectedItem()==null){                  
+                
+                    JOptionPane.showMessageDialog(null, "Il n'y a pas d'évenement en cours");
+ }else{
             String query = " insert into utilisateur_participant (nom, prenom, email, date_naissance, organisation, evenement_choisi)"
         + " values (?, ?, ?, ?, ?, ?)";
 
@@ -245,13 +248,17 @@ public class CreerParticipant extends javax.swing.JFrame {
       preparedStmt.setString(5, dN.getText());
       preparedStmt.setString(6, eventCombo.getSelectedItem().toString()); 
 
-      // execute the preparedstatement
+     
+          
+      
       preparedStmt.execute();
       {
           JOptionPane.showMessageDialog(null, "Particpant ajouté");
       }
+      
       con.close();
     }
+        }
     catch (Exception e)
     {
       System.err.println("Il y'a un problème quelque part !");
