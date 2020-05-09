@@ -166,7 +166,10 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
        Class.forName("org.postgresql.Driver");
        Connection con = DriverManager.getConnection("jdbc:postgresql://chamilo.rene-descartes.fr/GroupeA", "groupea", "grpa");
             System.out.println("Connexion au serveur réussie !");
-                     
+                                     if (aucun_fichier.getText() == "Aucun fichier")
+{
+    JOptionPane.showMessageDialog(null, "Aucun fichier n'a été choisi");
+}else{
             
             String query = "insert into utilisateur_participant (nom, prenom, email, date_naissance, organisation, evenement_choisi) values (?, ?, ?, ?, ?, ?)";
           
@@ -200,7 +203,7 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
                    
                 
                 preparedStmt.addBatch();
-                
+
                 if(jeventimport.getSelectedItem()==null){                  
                 
                     JOptionPane.showMessageDialog(null, "Il n'y a pas d'évenement en cours");
@@ -218,7 +221,7 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
              preparedStmt.executeBatch();
             con.commit();
             con.close();
-            
+                                     }
             } catch (Exception e)
     {
 

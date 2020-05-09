@@ -136,7 +136,7 @@ public class Connexion extends javax.swing.JFrame {
    this.hide();
       
   }else{
-      JOptionPane.showMessageDialog(null, "Mauvais mdp");
+      JOptionPane.showMessageDialog(null, "Mauvais mot de passe");
       login.setText("");
       password.setText("");
   }

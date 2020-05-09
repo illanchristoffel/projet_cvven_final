@@ -194,7 +194,7 @@ PreparedStatement pst = con.prepareStatement(sql);
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Tous les évenements disponible");
+        jLabel1.setText("Tous les évenements disponibles");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
