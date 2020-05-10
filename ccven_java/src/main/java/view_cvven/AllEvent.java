@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -77,7 +78,7 @@ public class AllEvent extends javax.swing.JFrame {
                 model.setRowCount(0);
                 //Show_archive();
                 
-                JOptionPane.showMessageDialog(null, "Evenement archivé");
+                JOptionPane.showMessageDialog(null, "Événement archivé");
             }else{
                 JOptionPane.showMessageDialog(null, "Il y'a une erreur !");
             }
@@ -174,7 +175,7 @@ PreparedStatement pst = con.prepareStatement(sql);
             }
         });
 
-        archive.setText("Archiver cet évenement");
+        archive.setText("Archiver cet événement");
         archive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 archiveActionPerformed(evt);
@@ -194,7 +195,7 @@ PreparedStatement pst = con.prepareStatement(sql);
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Tous les évenements disponibles");
+        jLabel1.setText("Tous les événements disponibles");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

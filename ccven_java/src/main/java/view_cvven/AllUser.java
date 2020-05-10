@@ -22,13 +22,10 @@ import net.proteanit.sql.DbUtils;
  */
 public class AllUser extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AllEvent
-     */
+    
     public AllUser() {
         initComponents();
         DisplayTable();
-        //Show_archive();
     }
     
     
@@ -89,17 +86,6 @@ public class AllUser extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -228,7 +214,7 @@ PreparedStatement pst = con.prepareStatement(sql);
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(archive, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(archive, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
                                 .addComponent(jButton1))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE))))

@@ -98,7 +98,7 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
             }
         });
 
-        jLabel2.setText("Quel évenement ?");
+        jLabel2.setText("Quel événement ?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,7 +116,9 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(parcourir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -124,10 +126,8 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jeventimport, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(33, 33, 33))
+                            .addComponent(jeventimport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,6 +166,13 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
        Class.forName("org.postgresql.Driver");
        Connection con = DriverManager.getConnection("jdbc:postgresql://chamilo.rene-descartes.fr/GroupeA", "groupea", "grpa");
             System.out.println("Connexion au serveur réussie !");
+            
+              if(jeventimport.getSelectedItem()== null)
+              {                  
+               
+                    JOptionPane.showMessageDialog(null, "Il n'y a pas d'événement en cours");
+             }
+              
                                      if (aucun_fichier.getText() == "Aucun fichier")
 {
     JOptionPane.showMessageDialog(null, "Aucun fichier n'a été choisi");
@@ -175,7 +182,6 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
           
 
       PreparedStatement preparedStmt = con.prepareStatement(query);
-     
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
             String lineText = null;
             
@@ -191,23 +197,17 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
                 String email = data[2];
                 String date_naissance = data[3];
                 String orga = data[4];
-                String event = data[5];
-                
                 
                 preparedStmt.setString(1, nom);
                 preparedStmt.setString(2, prenom);
                 preparedStmt.setString(3, email);
                 preparedStmt.setString(4, date_naissance);
                 preparedStmt.setString(5, orga);
-                preparedStmt.setString(6, event);
-                   
+                preparedStmt.setString(6, jeventimport.getSelectedItem().toString());
                 
                 preparedStmt.addBatch();
 
-                if(jeventimport.getSelectedItem()==null){                  
-                
-                    JOptionPane.showMessageDialog(null, "Il n'y a pas d'évenement en cours");
- }else{
+              
                     
                 
                 if (count % batchSize == 0) {
@@ -215,7 +215,6 @@ public class ImportUser extends javax.swing.JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Utilisateur(s) ajouté(s)");
                 }
             
-            }
             }
             lineReader.close();
              preparedStmt.executeBatch();
